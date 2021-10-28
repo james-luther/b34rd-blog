@@ -10,11 +10,9 @@ module.exports = {
     remark: {
       externalLinksTarget: '_blank',
       externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
-
       plugins: [
         ['gridsome-plugin-remark-shiki', {
-          theme: 'min-light',
-          skipInline: false
+          theme: 'min-light'
         }]
       ]
     }
@@ -26,13 +24,6 @@ module.exports = {
       options: {
         path: 'content/posts/**/*.md',
         typeName: 'Post',
-        remark: {
-          plugins: [
-            [ 'gridsome-plugin-remark-shiki', { 
-              theme: 'min-light', 
-              skipInline: false } ]
-          ]
-        },
         refs: {
           tags: {
             typeName: 'Tag',

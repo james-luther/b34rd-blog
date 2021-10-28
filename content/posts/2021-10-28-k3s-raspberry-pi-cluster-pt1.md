@@ -239,6 +239,7 @@ stream {
   }
 }
 ```
+
 I created a folder called .nginx in my home folder and stored the file nginx.conf there with the info listed above. To deploy our load balancer we just run
 
 ```
@@ -251,7 +252,7 @@ Now let's run kubectl get nodes and see what happens!
 
 If you have that, you are good to go! Now one final thing before we close out this part. We are going to configure helm! What is helm? It's a package manager for Kubernetes. <https://helm.sh/>. We are just going to follow the installation instructions found at <https://helm.sh/docs/intro/install/>. I went with the script method and had to run the installer with sudo.
 
-```bash
+```
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 &&
 chmod +x get_helm.sh &&
 sudo ./get_helm.sh
@@ -259,7 +260,7 @@ sudo ./get_helm.sh
 
 Once the installation is finished, we are going to add some chart repositories and ensure everything is good.
 
-```bash
+```
 helm repo add stable https://charts.helm.sh/stable &&
 helm repo add bitnami https://charts.bitnami.com/bitnami &&
 helm repo update
