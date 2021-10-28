@@ -221,6 +221,30 @@ You can decide where and how you want to store this file, I create a folder in m
 
 ![alt text](../../src/assets/images/k3s-homelab/bashrc.png "Bashrc export")
 
+If we open this file, we will see that it points to 127.0.0.1:6443. If we run kubectl we get nothing! We want to ensure our HA master nodes area able to handle requests. How are we going to do that? If one goes down and we only have this file pointed to one we are going to be in trouble. We need a load balancer. We can solve this a number of ways, my favorite way is with a config file and nginx in docker. Here is what my config file looks like:
+
+```
+events {}
+
+stream {
+  upstream k3s_servers {
+    server 192.168.1.248:6443;
+    server 192.168.1.249:6443;
+    server 192.168.1.250:6443;
+  }
+
+  server {
+    listen 6443;
+    proxy_pass k3s_servers;
+  }
+}
+```
+I created a folder called .nginx in my home folder and stored the file nginx.conf there with the info listed above. To deploy our load balancer we just run
+
+```
+sudo docker run -d --restart=unless-stopped -p 6443:6443 -v /home/b34rd/.nginx/nginx.conf:/etc/nginx/nginx.conf nginx:1.14
+```
+
 Now let's run kubectl get nodes and see what happens!
 
 ![alt text](../../src/assets/images/k3s-homelab/labeled-nodes.png "Workstation Nodes")
