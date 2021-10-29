@@ -1,5 +1,5 @@
 {
-  "name": "b34rd-blog",
+  "name": "gridsome-starter-bleda",
   "private": true,
   "scripts": {
     "build": "gridsome build",

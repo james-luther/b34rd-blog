@@ -1,8 +1,7 @@
 module.exports = {
-   siteName: 'b34rd_tek',
+  siteName: 'b34rd-tek',
   siteDescription: "b34rd tek is a space for infosec creatives to share information",
   siteUrl: 'https://b34rd.tech',
-  pathPrefix: '/',
   titleTemplate: `%s | b34rd`,
   icon: 'src/favicon.png',
 
