@@ -23,7 +23,7 @@ Once things were all working as they should I went back to my old code. It looks
 The reason for using reddit posts is because I want to be able to have the projects communicate effectively. Essentially with reddit, it will be a total ass like I am. I’m totally ok with this.
 
 For those interested, the reddit posts dataset can be downloaded here (torrent):
-```
+```shellcode
 magnet:?xt=urn:btih:7690f71ea949b868080401c749e878f98de34d3d&dn=reddit%5Fdata&tr=http%3A%2F%2Ftracker.pushshift.io%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80
 ```
 The full info about this can be found on reddit in [/r/datasets](https://www.reddit.com/r/datasets/comments/3bxlg7/i_have_every_publicly_available_reddit_comment/?utm_content=body&utm_medium=post_embed&utm_name=b5032bf0e4234a84a3f91d2d74a02d0e&utm_source=embedly&utm_term=3bxlg7)

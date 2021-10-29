@@ -18,7 +18,7 @@ cover: https://res.cloudinary.com/cryptojobslist/image/fetch/w_300,h_300,c_pad,b
 ---
 Decentralized web hosting with Fleek is easy and I'm going to walk you through how to use it.
 
-![alt text](https://docs.ipfs.io/assets/img/logo-fleek.5aed66a3.png "Fleek")
+![Fleek](https://docs.ipfs.io/assets/img/logo-fleek.5aed66a3.png)
 
 ----
 

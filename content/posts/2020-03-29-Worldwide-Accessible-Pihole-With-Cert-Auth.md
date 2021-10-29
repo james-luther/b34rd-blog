@@ -31,13 +31,13 @@ Now that we have this all done, connect directly to your main switch/router/conn
 
 After a bit of time you can check your DHCP server for what IP address your device was allocated. We can then ssh over with
 
-```bash
+```shellcode
 $ ssh pi@ip_address
 ```
 
 Once we are logged in there are a few things I recommend doing before proceeding.
 
-```bash
+```shellcode
 $ sudo raspi-config
 ```
 
@@ -45,7 +45,7 @@ Ensure locale and any other specific things you want are configured. Also we nee
 
 Next we need to do the obligatory
 
-```bash
+```shellcode
 $ sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade
 ```
 
@@ -61,7 +61,7 @@ Still with me? If so, awesome, if not, well, you’re not reading so it doesn’
 
 First, let’s begin with Pi-Hole!
 
-``` bash
+``` shellcode
 $ sudo apt-get -y install git
 $ git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
 $ cd "Pi-hole/automated install/"
@@ -76,43 +76,43 @@ First, I’m going to modify lighttpd to only listen on localhost.
 
 To do this we need to do the following:
 
-```bash
+```shellcode
 $ sudo vi /etc/lighttpd/external.conf
 ```
 
 From here we just add the line:
 
-```bash
+```shellcode
 server.bind="127.0.0.1"
 ```
 
 Save the file and restart the service.
 
-```bash
+```shellcode
 $ sudo systemctl restart lighttpd.service
 ```
 
 We aren’t finished. If you notice, this will not allow you to access your device through a proxy. To remedy this problem we need to edit another file.
 
-```bash
+```shellcode
 $ sudo vi /var/www/html/pihole/index.html
 ```
 
 We need to change line 10 to match the following
 
-```bash
+```shellcode
 $serverName = htmlspecialchars($_SERVER["SERVER_ADDR"]);
 ```
 
 We also need to edit auth.php
 
-```bash
+```shellcode
 $ sudo vi /var/www/html/admin/scripts/pi-hole/php/auth.php
 ```
 
 Under the following section you MAY need to add your FQDN to ensure all configuration changes, logins, etc through the proxy function. You can test as needed.
 
-```bash
+```shellcode
 $AUTHORIZED_HOSTNAMES = array(
         $ipv4,
         $ipv6,
@@ -138,7 +138,7 @@ To begin we need to install squid and all the parts of it we will be using later
 
 Since we have Pi-Hole installed we don’t need to worry about a static ip address. If you are only here for squid, well, USE STATIC IP!
 
-```bash
+```shellcode
 $ sudo apt-get -y install squid squid-cgi calamaris squidclient
 ```
 
@@ -150,7 +150,7 @@ Let’s get to configuring our proxy!
 
 Best thing to do at the start is backing up the default configuration in case we mess up everything.
 
-```bash
+```shellcode
 $ sudo cp /etc/squid/squid.conf /etc/squid/squidoriginal.conf.bak
 ```
 
@@ -158,25 +158,25 @@ Now we need to edit the config. Here there are only a few options to enable/chan
 
 First thing first! ACL! Most private CIDR address spaces are covered. I recommend commenting all of these out and adding your own to reflect your network. Mine is:
 
-```bash
+```shellcode
 acl localnet 192.168.2.0/24
 ```
 
 Ensure we have the acl allowed
 
-```bash
+```shellcode
 http_access allow localnet
 ```
 
 Now adjust dns
 
-```bash
+```shellcode
 Find: # dns_v4_first off remove the # symbol and change off to on.
 ```
 
 The remaining changes I’m making are as follows:
 
-```bash
+```shellcode
 Cache_mem 256
 MBMaximum_object_size 4096
 MBMaximum_object_size_in_memory 8192
@@ -185,13 +185,13 @@ KBCache_dir ufs /var/spool/squid = 8192
 
 Now we save and exit. Then we backup this configuration just to be safe.
 
-```bash
+```shellcode
 $ sudo cp /etc/squid/squid.conf /etc/squid/mysquid.conf.bak
 ```
 
 After this we can start our proxy
 
-```bash
+```shellcode
 $ sudo systemctl start squid
 ```
 
@@ -205,7 +205,7 @@ Squid is now up and running! From here I’m going to configure webmin to manage
 
 So.. personally, I’m not the biggest fan of this software. I think it is a lot of overkill for what we need. It does however make things very easy. We are going to cheat in installing this a bit. It seems odd but trust me, it makes our life easier.
 
-``` bash
+``` shellcode
 $ cd ~ 
 $ mkdir webmin-download
 $ cd webmin-download
@@ -215,7 +215,7 @@ $ sudo dpkg -i webmin-current.deb
 
 This is going to error saying we are missing dependencies. That’s perfect. We want that to happen. Now we can go ahead and install dependencies and webmin with the following:
 
-```bash
+```shellcode
 $ sudo apt-get -f install
 ```
 
@@ -236,13 +236,13 @@ Next we need to go to the left and find squid under unused modules section. In h
 
 The highlighted sections you will need to make match your install. For my install I had to change all from squid3 to squid and the scripts all to the corresponding systemctl ones. For example:
 
-```bash
+```shellcode
 service start squid
 ```
 
 changes to
 
-```bash
+```shellcode
 systemctl start squid
 ```
 
@@ -272,7 +272,7 @@ Yes, I know this seems like a bad idea, but don’t worry. We are going to handl
 
 Save settings and we are now going to ssh into our pi. From here we will execute the following:
 
-```bash
+```shellcode
 $ cd /etc/webmin
 $ ls 
 ```
@@ -281,13 +281,13 @@ $ ls
 
 We need to edit the file called config and add some lines to the bottom.
 
-```bash
+```shellcode
 $ sudo vi config
 ```
 
 We will then add the following:
 
-```bash
+```shellcode
 referer_none=1
 referer=1
 referers=127.0.0.1
@@ -313,7 +313,7 @@ I HIGHLY recommend you put your CA on a non-internet connected device. If you mu
 
 You can do all of this in whatever directory you choose. I’m just working in /root and will be giving a very quick setup. First we need to create our openssl.conf. Mine looks like this:
 
-```bash
+```shellcode
 [ ca ]
 default_ca = CA_default                 # The name of the CA configuration to be used.
                                         # can be anything that makes sense to you.
@@ -349,7 +349,7 @@ policy = policy_match
 
 You obviously will want to adjust things as needed here for your configuration. Now I’m going to create some files. Again, I’m logged in as root.
 
-```bash
+```shellcode
 mkdir -p /etc/ssl/ca/certs/users && \
 mkdir /etc/ssl/ca/crl && \
 mkdir /etc/ssl/ca/private
@@ -357,13 +357,13 @@ mkdir /etc/ssl/ca/private
 
 Next, we’ll create the reference files for the configuration. The database index file can be created empty. The CRL number file, on the other hand, will be expected by OpenSSL to have the first number in it:
 
-```bash
+```shellcode
 touch /etc/ssl/ca/index.txt && echo ’01’ > /etc/ssl/ca/crlnumber
 ```
 
 Finally, we’ll create our server certificates and the certificate revocation list for the CA. We’ll set an expiration of one year in our example. Again, you can set this up however you like based on your environment.
 
-```bash
+```shellcode
 openssl genrsa -des3 -out /etc/ssl/ca/private/ca.key 4096
 
 openssl req -new -x509 -days 1095 \
@@ -381,7 +381,7 @@ Whew! We got that done. Now to get to generating user certificates.
 
 All we need to do is the following:
 
-```bash
+```shellcode
 openssl genrsa -des3 -out /etc/ssl/ca/certs/users/USERNAME.key 1024
 
 openssl req -new -key /etc/ssl/ca/certs/users/USERNAME.key \
@@ -442,13 +442,13 @@ Once our instance is complete we just click the SSH icon next to it. Your screen
 
 If you added any extra keys or anything they are being copied over. Once we are logged in we need to do our usual house items such as updates and installation of packages.
 
-```bash
+```shellcode
 $ sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade$ sudo apt-get install nginx certbot
 ```
 
 From here I recommend setting up ssh keys. You can generate them on your cloud instance or on your pi and copy them over. You just need to run
 
-```bash
+```shellcode
 $ ssh-keygen
 ```
 
@@ -458,7 +458,7 @@ And follow the on screen prompts. Your pi and cloud instance will need to share 
 
 Now I’m going to hop over to our pi and configure AutoSSH.
 
-```bash
+```shellcode
 $ sudo apt-get install autossh
 ```
 
@@ -466,7 +466,7 @@ Once we have this finished we need to ensure we can ssh over to our cloud instan
 
 Once ssh works we need to test autossh via command line. The command and options I used are:
 
-```bash
+```shellcode
 $ autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -R 10000:localhost:10000 user@instance -f -T -Nautossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -R 8080:localhost:80 user@instance -f -T -N
 ```
 
@@ -474,7 +474,7 @@ As you can see that is for forwarding my webmin port in the first command and th
 
 I do this with:
 
-```bash
+```shellcode
 $ sudo netstat -antp
 ```
 
@@ -484,7 +484,7 @@ I use sudo with those switches to see what process is running what. Anything out
 
 And we are working!! Now let’s make autossh into a service so our pi will connect and maintain that connection. Back to the Pi!
 
-```bash
+```shellcode
 $ cd /etc/systemd/system
 ```
 
@@ -492,13 +492,13 @@ Here we need to create two files for our two different autossh commands
 
 You can name them whatever you want but mine are autossh-pihole.service and autossh-webmin.service. I’m going to just show one and you can then make the changes you need for the second.
 
-```bash
+```shellcode
 $ sudo vi /etc/systemd/system/autossh-pihole.service
 ```
 
 The contents of this file should look as follows:
 
-```bash
+```shellcode
 [Unit]
 Description=AutoSSH tunnel service pihole
 After=network.target
@@ -514,7 +514,7 @@ WantedBy=multi-user.target
 
 You can place your ssh key wherever you like and use whatever user you like. I HIGHLY recommend using a non-shell, non-privileged user you create. That way if anyone is able to obtain the key and hit your pi they aren’t able to do anything with it. The same on your Google Cloud Instance. Maybe add a user called autossh with no shell. Anyway, once we have this file, save it and quit. Then create the one for webmin. One both are complete…
 
-```bash
+```shellcode
 $ sudo systemctl daemon-reload
 $ sudo systemctl enable autossh-pihole.service
 $ sudo systemctl enable autossh-webmin.service
@@ -524,26 +524,26 @@ $ sudo systemctl start autossh-webmin.service
 
 From here we verify services started ok with
 
-```bash
+```shellcode
 $ sudo systemctl status autossh-pihole.service 
 $ sudo systemctl status autossh-webmin.service
 ```
 
 If everything looks good we bounce back over to our Google Instance. First we verify that the ports are listening as expected. If so, we go to configuring NGINX!!
 
-```bash
+```shellcode
 $ cd /etc/nginx
 ```
 
 We need to create two files for our webmin and pihole services in the sites-available folder. We need to make sure they match either our IP address or FQDN. If you want DNS resolution you need to add A records in your DNS for your domain. For example my domain is b34rd.tech. I added two A records. One for pihole and one for webmin. So my files in sites-available are webmin.b34rd.tech and pihole.b34rd.tech.
 
-```bash
+```shellcode
 $ sudo vim /etc/nginx/sites-available/webmin.b34rd.tech
 ```
 
 In here we need to add the following:
 
-```bash
+```shellcode
 server {
     server_name webmin.yourdoain.com;
     listen 80;    location / {
@@ -554,7 +554,7 @@ server {
 
 For pihole we do similar:
 
-```bash
+```shellcode
 $ sudo vim /etc/nginx/sites-available/pihole.b34rd.techserver {
     server_name pihole.yourdomain.com;
     listen 80;    location / {
@@ -567,7 +567,7 @@ $ sudo vim /etc/nginx/sites-available/pihole.b34rd.techserver {
 
 No, we still don’t have SSL configured. BUT we can verify connectivity here.
 
-```bash
+```shellcode
 $ sudo ln -s /etc/nginx/sites-available/pihole.b34rd.tech /etc/nginx/sites-enabled/$ sudo ln -s /etc/nginx/sites-available/webmin.b34rd.tech /etc/nginx/sites-enabled/$ sudo nginx -t
 ```
 
@@ -579,7 +579,7 @@ You need to verify syntax in your files.
 
 Let’s start up nginx!
 
-```bash
+```shellcode
 $ sudo systemctl enable nginx$ sudo systemctl start nginx
 ```
 
@@ -587,13 +587,13 @@ Here we can browse to our cloud instance IP or our FQDN. We will be able to acce
 
 Now we need to secure them. Luckily with certbot this is simple!
 
-```bash
+```shellcode
 $ sudo certbot --nginx -d pihole.yourdomain.com -d webmin.yourdomain.com
 ```
 
 There will be on-screen prompts showing you status. Answer questions and select YES on redirect all to https. This will edit our config files for us to include all valid SSL certificates. We can restart nginx and verify this once again.
 
-```bash
+```shellcode
 $ sudo systemctl restart nginx
 ```
 
@@ -601,14 +601,14 @@ If we are able to browse, are redirected to https we are almost done. We have on
 
 We need to copy the following from our CA to our Cloud Instance:
 
-```bash
+```shellcode
 ca.crl
 ca.crt
 ```
 
 I put these files in the following locations:
 
-```bash
+```shellcode
 /etc/ssl/client/ca.crt
 /etc/ssl/client/ca.crl
 ```
@@ -617,7 +617,7 @@ You can put them anywhere you like but make sure you remember where you put them
 
 Final edit. In our sites-available in nginx we need to add the following:
 
-```bash
+```shellcode
 # Client Cert Config
 ssl_client_certificate /etc/ssl/client/ca.crt;
 ssl_crl /etc/ssl/client/ca.crl;
@@ -626,7 +626,7 @@ ssl_verify_client on;
 
 I personally add this to the first server section in the files. My pihole config looks like this now:
 
-```bash
+```shellcode
 server {
     server_name pihole.yourdomain.com;location / {
         return 301 http://$host$request_uri/admin;
@@ -651,7 +651,7 @@ server {
 
 You will need to ensure you add this to your webmin file also and restart nginx one final time.
 
-```bash
+```shellcode
 $ sudo systemctl restart nginx 
 ```
 

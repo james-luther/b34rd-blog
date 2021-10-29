@@ -68,7 +68,7 @@ From here we need to ensure we select a GPU workspace and install hashcat.
 
 To install hashcat we must issue the following:
 
-```bash
+```shellcode
 ! apt-get install cmake build-essential -y && apt install checkinstall git -y && git clone https://github.com/hashcat/hashcat.git && cd hashcat && git submodule update --init && make && make install
 ```
 
@@ -80,7 +80,7 @@ From here we can do a number of things. We can benchmark hashcat, we can mount o
 
 First, let's run a benchmark of NTLM and see what we've got going on here:
 
-```bash
+```shellcode
 ! hashcat --benchmark -m 1000 -O
 ```
 
@@ -92,13 +92,13 @@ From here let's do some testing. I'm going to create a Linux user and copy the h
 
 First, let's create a user (if you don't want to, you can just copy and paste hashes and info from here)
 
-```bash
+```shellcode
 $ sudo useradd -M test
 ```
 
 We specify -M to prevent the command from making a home directory. Let’s create a password and then grab the user’s hash and learn about it.
 
-```bash
+```shellcode
 $ sudo passwd test 
 $ sudo grep test /etc/shadow 
 ```
@@ -107,13 +107,13 @@ $ sudo grep test /etc/shadow
 
 I set my password to ‘Pa$$w0rd’. It is simple for this example and we can crack it very quickly with hashcat.
 
-```bash
+```shellcode
 test:$6$.9Hl.zh1SmgNUTY1$ATFrFRKT7QCpaPVgtOtNRadSITnqkux8Zc2TtNFe03V55/WCnFAATYgWAzDCOVb/XL/8gdq21Yq1TZAl8ZgWL/:17947:0:99999:7:::
 ```
 
 This is going into a new file called hash.txt that is being uploaded to the root of my Google Drive. From here we can mount Google Drive in our Colab doc and run hashcat. To mount drive do the following:
 
-```bash
+```shellcode
 from google.colab import drive
 drive.mount('/content/drive')
 ```
@@ -124,25 +124,25 @@ Follow the link and instructions to link your drive. Now that we are about to ru
 
 Looking at this hash, $6$ indicates SHA512. The characters after the $6$ up to the next $ are the SALT. For me, that is .9Hl.zh1SmgNUTY1. To further verify what type of hash storage is on our system, we can look at the hash configuration in /etc/login.defs
 
-```bash
+```shellcode
 $ sudo grep ENCRYPT_METHOD /etc/login.defs
 ```
 
 This returns SHA512 in my case. If you want more details you can view the entire file. We need to sanitize our hash.txt file a bit to make it ready for hashcat also.
 
-```bash
+```shellcode
 $ sudo grep test /etc/shadow > test.hash
 ```
 
 Use your preferred editor to remove the username and colon following. We also need to remove the colons and extra characters at the end of the file. For me, the hash looks like this:
 
-```bash
+```shellcode
 $6$.9Hl.zh1SmgNUTY1$ATFrFRKT7QCpaPVgtOtNRadSITnqkux8Zc2TtNFe03V55/WCnFAATYgWAzDCOVb/XL/8gdq21Yq1TZAl8ZgWL/
 ```
 
 We now need a wordlist. I prefer the rockyou list as a base but you can start wherever you’d like. To download the rockyou list go to skullsecurity.org or just
 
-```bash
+```shellcode
 ! wget http://downloads.skullsecurity.org/passwords/rockyou.txt.bz2
 ! bunzip2 rockyou.txt.bz2
 ```
@@ -151,7 +151,7 @@ We now need a wordlist. I prefer the rockyou list as a base but you can start wh
 
 We have our hash and our wordlist. Let’s crack it!
 
-```bash
+```shellcode
 ! hashcat -m 1800 -a 0 -O -o found.txt "/content/drive/My Drive/hash.txt" rockyou.txt
 ```
 
@@ -162,7 +162,7 @@ Let’s break the command down a bit, -m specifies hash type, -a 0 tells hashcat
 
 To view the results ...
 
-```bash
+```shellcode
 ! cat found.txt
 ```
 

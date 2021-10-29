@@ -47,33 +47,33 @@ Ok, so, we found our rigs. Mine is an Arch Linux system with two Radeon Vega Fro
 As I mentioned before, I already have Arch installed and if you’re interested in that setup check it out here: <LINK REDACTED>
 
 The only things needed from this base installation is hashcat and Radeon Open Compute. The latter can be a a pain but I’ve tried to make it easier. You need to enable the Arch User Repository (AUR) and can install both from there. Hashcat is just the following:
-```bash
+```shellcode
 $ sudo pacman -S hashcat hashcat-utils
 ```
 If you want to build the newest hashcat you can do so from AUR with the following:
-```bash
+```shellcode
 $ pamac build hashcat-git hashcat-utils-git
 ```
 Once that is installed we will need to do a couple of things. First, we need to see if we have opencl-mesa installed and if we do, we need to see if it is actually needed. Some applications use it and won’t use the opencl we are going to compile. We can check with the following:
-```bash
+```shellcode
 $ clinfo
 ```
 If you don’t have clinfo we can just search in pamac or pacman
-```bash
+```shellcode
 $ pacman -Ss opencl-mesaor$ pamac search opencl-mesa
 ```
 If it is installed and needed, this isn’t an issue. We just want to verify. From here we need to begin installation of Radeon Open Compute. We first need to install the runtime.
-```bash
+```shellcode
 $ pamac build rocm-runtime
 ```
 This may have some prerequisites and they can be installed the same way.
-```bash
+```shellcode
 $ pamac build {required applications}
 ```
 This may take some time depending on your system but is the base we need before building ROCm OpenCL.
 
 To install the Radeon Open Compute version of OpenCL we need to build it from source with a custom PKGBUILD. We can do this a few ways… we can use pamac and edit the PKGBUILD, or we can run pamac to get the build info and then download the PKGBUILD that is edited into the location.
-```bash
+```shellcode
 $ pamac build rocm-opencl-git
 ```
 If you want to edit your PKGBUILD files, I have a copy here: https://gist.github.com/el-barbado/126aae6de40d079782746af637e94231
@@ -87,11 +87,11 @@ This build takes some time as well. The PKGBUILD that I have linked fixes some o
 Once the build is complete we can run some benchmarks!
 
 I have to run mine with sudo because I haven’t setup the correct group permissions for my user.
-```bash
+```shellcode
 $ sudo hashcat --benchmark -m 1000 -O --opencl-vector-width 8
 ```
 If you have opencl-mesa installed you will receive an error about it with the command above. You just need to specify the platform:
-```bash
+```shellcode
 $ sudo hashcat --benchmark -m 1000 -O --opencl-vector-width 8 --opencl-platform 2
 ```
 
@@ -100,15 +100,15 @@ $ sudo hashcat --benchmark -m 1000 -O --opencl-vector-width 8 --opencl-platform 
 This will be faster on a system that isn’t over 10 years old, running multiple virtual machines, and has PCIe v3.0, but it’s not bad for some testing.
 
 Before we continue, I’m going to add my user to the correct group to not need sudo.
-```bash
+```shellcode
 $ sudo usermod -a -G video $LOGNAME
 ```
 Let’s test our hashcat install on some actual hashes. You can use any wordlist you’d like. Let’s begin by making ourselves a new user on our system.
-```bash
+```shellcode
 $ sudo useradd -M test
 ```
 We specify -M to prevent the command from making a home directory. Let’s create a password and then grab the user’s hash and learn about it.
-```bash
+```shellcode
 $ sudo passwd test
 
 $ sudo grep test /etc/shadow 
@@ -117,27 +117,27 @@ $ sudo grep test /etc/shadow
 ![alt text](https://miro.medium.com/max/700/1*FSiYceBAkj5msYUk-gxOtQ.png)
 
 I set my password to ‘Pa$$w0rd’. It is simple for this example and we can crack it very quickly with hashcat.
-```bash
+```shellcode
 test:$6$.9Hl.zh1SmgNUTY1$ATFrFRKT7QCpaPVgtOtNRadSITnqkux8Zc2TtNFe03V55/WCnFAATYgWAzDCOVb/XL/8gdq21Yq1TZAl8ZgWL/:17947:0:99999:7:::
 ```
 Looking at my hash, $6$ indicates SHA512. The characters after the $6$ up to the next $ are the SALT. For me, that is .9Hl.zh1SmgNUTY1. To further verify what type of hash storage is on our system, we can look at the hash configuration in /etc/login.defs
-```bash
+```shellcode
 $ sudo grep ENCRYPT_METHOD /etc/login.defs
 ```
 This returns SHA512 in my case. If you want more details you can view the entire file. Let’s take the hash from the user we created and put it in a file for hashcat.
-```bash
+```shellcode
 $ sudo grep test /etc/shadow > test.hash
 ```
 Use your preferred editor to remove the username and colon following. We also need to remove the colons and extra characters at the end of the file. For me, the hash looks like this:
-```bash
+```shellcode
 $6$.9Hl.zh1SmgNUTY1$ATFrFRKT7QCpaPVgtOtNRadSITnqkux8Zc2TtNFe03V55/WCnFAATYgWAzDCOVb/XL/8gdq21Yq1TZAl8ZgWL/
 ```
 We now need a wordlist. I prefer the rockyou list as a base but you can start wherever you’d like. To download the rockyou list go to skullsecurity.org or just
-```bash
+```shellcode
 $ wget http://downloads.skullsecurity.org/passwords/rockyou.txt.bz2$ bunzip2 rockyou.txt.bz2
 ```
 We have our hash and our wordlist. Let’s crack it!
-```bash
+```shellcode
 $ hashcat -m 1800 -a 0 -O --opencl-vector-width 8 -o found.txt --remove test.hash rockyou.txt
 ```
 Let’s break the command down a bit, -m specifies hash type, -a 0 tells hashcat we are doing a dictionary attack, -O tells hashcat to use the optimized opencl kernel, -o is output file, — remove will delete our hash from the original file.
@@ -156,7 +156,7 @@ With initialization and cracking it took less than 2 minutes.
 ![alt text](https://miro.medium.com/max/591/1*qyxXtTYVsLvKMTfr1j-VwQ.png "Carcked our hash")
 
 Look at the output file specified, you will see the password. It will show the hash followed by the cracked password
-```bash
+```shellcode
 $6$.9Hl.zh1SmgNUTY1$ATFrFRKT7QCpaPVgtOtNRadSITnqkux8Zc2TtNFe03V55/WCnFAATYgWAzDCOVb/XL/8gdq21Yq1TZAl8ZgWL/:Pa$$w0rd
 ```
 A few things to know. The -O option uses an optimized OpenCL kernel that will drastically reduce cracking time. It does have a drawback… any passwords over 8 characters won’t be found. To test on any password over 8 characters you need to remove the -O.
@@ -166,7 +166,7 @@ A few things to know. The -O option uses an optimized OpenCL kernel that will dr
 Now let’s move on to some Machine Learning. For this, I’m going to go over installing tensor flow (https://www.tensorflow.org).
 
 Let’s begin by installing miopen. This is AMD’s Machine Intelligence Library.
-```bash
+```shellcode
 $ pamac build rocblas
 
 $ pamac build miopengemm
@@ -178,17 +178,17 @@ $ pamac build miopen
 Once this compiles the kernels we can start our tensorflow install. There are three ways we can do this. We can compile from source, we can install via pip, via Anaconda, or we can use docker. I prefer docker because it is the easiest.
 
 For pip you need to have python-pip installed.
-```bash
+```shellcode
 $ sudo pacman -S python-pip
 
 $ pip install --user tensorflow-rocm
 ```
 For Anaconda we need to install it as well. You can go the full Anaconda route or the miniconda route. I prefer mini because I don’t need the full features.
-```bash
+```shellcode
 $ pamac build miniconda3
 ```
 Once the build completes we just complete the onscreen instructions. From here we can install tensorflow-rocm.
-```bash
+```shellcode
 $ conda install -c rocm tensorflow-rocm
 ```
 Once installation completes we will need to add the anaconda python to our $PATH. By default this is /opt/miniconda.
@@ -204,7 +204,7 @@ I’m not going to get too much into TensorFlow here, I will have another blog p
 ![alt text](https://miro.medium.com/max/659/1*BY5NA77e54PDoBWiaKHufw.png)
 
 Another fun machine learning tool is gym from OpenAi. This is much simpler to get started.
-```bash
+```shellcode
 $ git clone https://github.com/openai/gym.git
 
 $ cd gym
@@ -214,7 +214,7 @@ $ sudo pip install -e .
 Here you can check out the README and the examples folder.
 
 You could also install via pamac
-```bash
+```shellcode
 $ pamac build python-gym
 ```
 There is one other main machine learning library. It is called PyTorch. I haven’t used this much so I’m not going to go over installing it.

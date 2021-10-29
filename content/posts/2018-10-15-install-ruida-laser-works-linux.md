@@ -17,14 +17,14 @@ My VM died!! Really, the entire hard disk failed and I had no backup. I rebuilt 
 Let’s get started!
 
 First we need to install the required packages.
-```
+```shellcode
 sudo pacman -S wine-staging-nine wine-mono wine_gecko winetricks
 ```
 
 ![alt text](https://miro.medium.com/max/1400/1*tSPBSZ-aCy0jreF66cEbaQ.png "installation via pacman")
 
 This only takes a minute depending on your network connection. Once finished we run
-```bash
+```shellcode
 winetricks
 ```
 
@@ -44,7 +44,7 @@ We need to select the wineprefix we wish to use and install some resources. The 
 From here we can find our copy of RDLaserWorks and install. If you don’t have this software, you can download directly from RuiDA here: Ruida Downloads. There you select the version you wish to use.
 
 To install:
-```bash
+```shellcode
 wine /path/to/installer.exe
 ```
 Follow the prompts of the installer just like you would on Windows.
