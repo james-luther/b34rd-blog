@@ -1,6 +1,7 @@
 ---
 title: K3S HA Homelab on Raspberry Pi Cluster Pt1
 description: "k3s cluster on raspberry pis for homelab"
+slug: k3s-homelab-pi-pt1
 date: 2021-10-28
 author: b34rd
 tags: ['k3s', 
@@ -28,7 +29,7 @@ K3s is a highly available, certified Kubernetes distribution designed for produc
 
 ### Why k3s over docker, docker-swarm, virtualization, or just bare metal?
 
-Well, these are all great questions and honestly each application, server, and use needs to be considered to answer that question fully. For a homelab, home network, or even a small business k3s on a raspberry pi cluster can more than adequately serve your internal and even some of your external needs without any trouble. If  you are like me and are constantly tinkering or improvoing k3s will be a HUGE help as the redundancy after a breaking configuration change will save you time and complaining kids/co-workers. In the examples I'm giving during these guides, kubernetes and k3s are perfect for the use cases and workloads. 
+Well, these are all great questions and honestly each application, server, and use needs to be considered to answer that question fully. For a homelab, home network, or even a small business k3s on a raspberry pi cluster can more than adequately serve your internal and even some of your external needs without any trouble. If  you are like me and are constantly tinkering or improvoing, k3s will be a HUGE help as the redundancy after a breaking configuration change will save you time and complaining kids/co-workers. In the examples I'm giving during these guides, kubernetes and k3s are perfect for the use cases and workloads. 
 
 The key differences between all of these is how you want to implement and provide services. I like load balancing, automations, redundancies, and a comprehensive management plane. That's why k3s is my choice. Also, docker is super awesome so why not take it to the extreme?
 
@@ -41,7 +42,7 @@ Ready to begin, awesome! Here's the items we need to get together:
 
   + 3 or more Raspberry Pi 4s
   + Network access for these devices
-  + SD Cards or USB SSD (highly recommend this option)
+  + SD Cards or USB SSD (highly recommend SSD option)
   + A workstation to image from and manage your cluster from
 
 
@@ -59,11 +60,11 @@ This is the latest image as of writing. You can check in the images folder to se
 ![Rasbperry Pi Imager](https://assets.raspberrypi.com/static/md-bfd602be71b2c1099b91877aed3b41f0.png)
 
 
-Under Operating System we will select Custom OS and then select the image we downloaded. Then select your SD Card or your USB drive. Before clicking write press [CTRL] + [Shift] + [X]. This will display the advanced menu. Here we can enable ssh, select our public key, enable wifi (if using it), set TZ, and make a few other changes. We can also check the box to make this the default for all images going forward. Once you are happy with everything click save, then click write.
+Under Operating System we will select Custom OS and then select the image we downloaded. Then select your SD Card or your USB drive. Before clicking write press [CTRL] + [Shift] + [X]. This will display the advanced menu. Here we can enable ssh, select our public key, enable wifi (if using it), set TZ, and make a few other changes. We can also check the box to make this the default for all images going forward. Once we are happy with everything click save, then click write.
 
 ![Imager advanced options](../../src/assets/images/k3s-homelab/advanced-options.png)
 
-You will need to repeat this process for every Pi you are setting up. Once finished, we will need to mount the boot and root partitions of our flashed drive. In the boot portion we need to add some lines to cmdline.txt file. 
+We will need to repeat this process for every Pi you are setting up. Once finished, we will need to mount the boot and root partitions of our flashed drive. In the boot portion we need to add some lines to cmdline.txt file. 
 
 After the text 'rootwait' and before 'quiet' add the following:
 
@@ -75,7 +76,7 @@ It will look something like this
 
 ![Edited cmdline.txt](../../src/assets/images/k3s-homelab/cmdline.png )
 
-You will have some additional text after rootwait but ensure you put this between rootwait and quiet. From quiet on is removed after the first boot because they are used for resizing your volume
+We will have some additional text after rootwait but ensure you put this between rootwait and quiet. From quiet on is removed after the first boot because they are used for resizing your volume
 Next we need to edit dhcpcd.conf. This can be done by opening a terminal browsing to the mounted folder of our rootfs partition. You can do this easily by using the file browser.
 
 ![Rootfs terminal](../../src/assets/images/k3s-homelab/rootfs.png)
@@ -84,7 +85,7 @@ Next we need to edit dhcpcd.conf. This can be done by opening a terminal browsin
 sudo nano etc/dhcpcd.conf
 ```
 
-Here you need to setup your static IP address information. You can scroll down, uncomment lines, and edit them as needed. Mine looks like this:
+Here we need to setup your static IP address information. We can scroll down, uncomment lines, and edit them as needed. Mine looks like this:
 
 ![dhcpcd static ip config](../../src/assets/images/k3s-homelab/dhcpcd.png)
 
@@ -181,7 +182,7 @@ There is one last thing before we move on to setting up our workstation. This is
 ```shellscript
 kubectl label node <node-hostname> node-role.kubernetes.io/worker=worker
 ```
-Once you do this for your nodes you will have something that looks like this
+Once we do this for your nodes you will have something that looks like this
 
 ![Labeled Nodes](../../src/assets/images/k3s-homelab/labeled-nodes.png)
 
@@ -231,7 +232,7 @@ Now let's run kubectl get nodes and see what happens!
 
 ![Workstation Nodes](../../src/assets/images/k3s-homelab/labeled-nodes.png)
 
-If you have that, you are good to go! Now one final thing before we close out this part. We are going to configure helm! What is helm? It's a package manager for Kubernetes. <https://helm.sh/>. We are just going to follow the installation instructions found at <https://helm.sh/docs/intro/install/>. I went with the script method and had to run the installer with sudo.
+If you have that, you are good to go! Now one final thing before we close out this part. We are going to configure helm! What is helm? It's a package manager for Kubernetes. <https://helm.sh/>. We are just going to follow the installation instructions found at <https://helm.sh/docs/intro/install/>. I went with the script method and had to run the installer with sudo. Depending on your workstation the instructions might vary a bit.
 
 ```shellscript
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 &&
@@ -251,7 +252,7 @@ Once that's finished we are ready to move on to part 2!
 
 ### Conclusion
 
-Well, you now have a k3s HA cluster setup. Well, that's if you used more than 1 Pi. If  you used one and just follwed instructions for the first master you are ready to add more master nodes and some worker nodes. In the next part we will setup the Kubernetes Dashboard, Metallb, Cert-Manager, Rancher, and Longhorn. Once we have those up and running we can configure replicated and persistent storage, backups, and a few other fun tweaks. In Part 3 we will begin adding all of our homelab things like PiHole, UniFi Network Application, Heimdall, Squid, and tons more. They all thrive in this environment as if one worker or even one master that is hosting a pod (the thing that holds containers in kubernetes) goes down, another will pickup the task and keep your apps going! If you have any questions feel free to ask. Also, I've listed my references and resources below. Happy hacking!
+Well, we now have a k3s HA cluster setup. Well, that's if you do too if you used more than 1 Pi. If you used one and just follwed instructions for the first master you are ready to add more master nodes and some worker nodes. In the next part we will setup the Kubernetes Dashboard, Metallb, Cert-Manager, Rancher, and Longhorn. Once we have those up and running we can configure replicated and persistent storage, backups, and a few other fun tweaks. In Part 3 we will begin adding all of our homelab things like PiHole, UniFi Network Application, Heimdall, Squid, and tons more. They all thrive in this environment because if one worker or even one master that is hosting a pod (the thing that holds containers in kubernetes) goes down, another will pickup the task and keep your apps going! If you have any questions feel free to ask. Also, I've listed my references and resources below. Happy hacking!
 
 References:
  + <https://rancher.com/>
