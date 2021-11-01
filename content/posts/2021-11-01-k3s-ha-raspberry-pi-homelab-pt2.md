@@ -415,6 +415,7 @@ sudo k3s etcd-snapshot \
   --s3-bucket=<S3-BUCKET-NAME> \
   --s3-access-key=<S3-ACCESS-KEY> \
   --s3-secret-key=<S3-SECRET-KEY> \
+  --s3-region=<S3-REGION> \
   --s3-endpoint=<S3-ENDPOINT>
 ```
 
@@ -429,6 +430,7 @@ sudo k3s server \
   --etcd-s3-bucket=<S3-BUCKET-NAME> \
   --etcd-s3-access-key=<S3-ACCESS-KEY> \
   --etcd-s3-secret-key=<S3-SECRET-KEY> \
+  --etcd-s3-region=<S3-REGION> \
   --etcd-s3-endpoint=<S3-ENDPOINT>
 ```
 
@@ -440,6 +442,7 @@ sudo k3s etcd-snapshot delete          \
   --s3-bucket=<S3-BUCKET-NAME>    \
   --s3-access-key=<S3-ACCESS-KEY> \
   --s3-secret-key=<S3-SECRET-KEY> \
+  --s3-region=<S3-REGION> \
   --s3-endpoint=<S3-ENDPOINT>
   <SNAPSHOT-NAME>
 ```
