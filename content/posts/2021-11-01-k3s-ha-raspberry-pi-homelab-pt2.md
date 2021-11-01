@@ -410,41 +410,44 @@ Alright, whew... That was A LOT. I think this is a great stopping point as we ha
 Well, we accomplished a LOT!! We now have a fully HA cluster with cloud decentralized backups of our persistant data. That data is also replicated between all nodes in our cluster. There are a few other things to consider before moving on to installing apps. The HA embedded db snapshots can be backed up to the cloud also. We can create another bucket for those in storj or use another system if we want. If you want to go ahead and create some here's what you do...
 
 ```shellscript
-k3s etcd-snapshot \
+sudo k3s etcd-snapshot \
   --s3 \
   --s3-bucket=<S3-BUCKET-NAME> \
   --s3-access-key=<S3-ACCESS-KEY> \
-  --s3-secret-key=<S3-SECRET-KEY>
+  --s3-secret-key=<S3-SECRET-KEY> \
+  --s3-endpoint=<S3-ENDPOINT>
 ```
 
 If we need to restore from one of these:
 
 ```shellscript
-k3s server \
+sudo k3s server \
   --cluster-init \
   --cluster-reset \
   --etcd-s3 \
   --cluster-reset-restore-path=<SNAPSHOT-NAME> \
   --etcd-s3-bucket=<S3-BUCKET-NAME> \
   --etcd-s3-access-key=<S3-ACCESS-KEY> \
-  --etcd-s3-secret-key=<S3-SECRET-KEY>
+  --etcd-s3-secret-key=<S3-SECRET-KEY> \
+  --etcd-s3-endpoint=<S3-ENDPOINT>
 ```
 
 If we want to delete a specific snapshot:
 
 ```shellscript
-k3s etcd-snapshot delete          \
+sudo k3s etcd-snapshot delete          \
   --s3                            \
   --s3-bucket=<S3-BUCKET-NAME>    \
   --s3-access-key=<S3-ACCESS-KEY> \
   --s3-secret-key=<S3-SECRET-KEY> \
+  --s3-endpoint=<S3-ENDPOINT>
   <SNAPSHOT-NAME>
 ```
 
 Finally, if we want to prune our snapshots and only keep a certain amount:
 
 ```shellscript
-k3s etcd-snapshot prune --snapshot-retention 10
+sudo k3s etcd-snapshot prune --snapshot-retention 10
 ```
 
 We covered a LOT during this part and I hope it wasn't a dive into the deep end without knowing how to swim kind of thing. If there are any questions please don't hesitate to ask and as always, happy hacking!!
