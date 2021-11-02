@@ -50,11 +50,11 @@
               </p>
               <table>
                 <tr>
-                  <td id='btc'><button class='cryptodonate-btn' @click="btcShow = !btcShow">Donate <img
+                  <td id='btc'><button class='cryptodonate-btn' @click="btcShow = !btcShow">Donate<img
                         src='../assets/images/icons/icon_bitcoin.png' /></button></td>
-                  <td id='eth'><button class='cryptodonate-btn' @click='ethShow = !ethShow'>Donate <img
+                  <td id='eth'><button class='cryptodonate-btn' @click="ethShow = !ethShow">Donate<img
                         src='../assets/images/icons/icon_ethereum.png' /></button></td>
-                  <td id='ltc'><button class='cryptodonate-btn' @click='ltcShow = !ltcShow'>Donate <img
+                  <td id='ltc'><button class='cryptodonate-btn' @click="ltcShow = !ltcShow">Donate<img
                         src='../assets/images/icons/icon_litecoin.png' /></button></td>
                 </tr>
               </table>
