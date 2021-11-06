@@ -167,6 +167,7 @@ We just copy this string and then ssh into our nodes and run the following:
 
 ```shellscript
 sudo curl -sfL https://get.k3s.io | K3S_TOKEN=<NODE TOKEN STRING> K3S_URL=https://<IP OF FIRST MASTER>:6443 sh -
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```
 
 We can then go back to one of our master nodes and watch these come online!
