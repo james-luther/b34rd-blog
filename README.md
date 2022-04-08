@@ -7,7 +7,7 @@ This is the repository for b34rd.tech
 
 ### [](#header-3) License
 
-This is software is free and open source. It does however use the [GPLv3.0 License](https://www.gnu.org/licenses/gpl-3.0.en.html). 
+This is software is free and open source (MIT License) 
 
 Author: b34rdtek
 Twitter: [b34d_tek](https://twitter.com/b34d_tek)
