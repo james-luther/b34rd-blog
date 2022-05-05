@@ -1,3 +1,5 @@
+# This workflow performs IaC checks
+
 name: Static Code Analysis
 
 on:
@@ -19,16 +21,15 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
-          hide-progress: false
           severity: 'HIGH,CRITICAL'
-          ignore-unfixed: false
+          ignore-unfixed: true
           format: 'json'
           output: 'result.json'
       
       - uses: CemitDigital/trivy-report-issue-action@v1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          input-filename: "result.json"
+          input-filename: 'result.json'
           label: 'vulnerability'
           assignee: ''
           project-id: ''
