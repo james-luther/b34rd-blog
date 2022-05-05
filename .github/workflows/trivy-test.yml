@@ -4,9 +4,11 @@ name: Static Code Analysis
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * *'
   push:
     branches:
-      - main
+      - master
   pull_request:
   
 jobs:
@@ -21,6 +23,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
+          hide-progress: false
           severity: 'HIGH,CRITICAL'
           ignore-unfixed: true
           format: 'json'
@@ -29,7 +32,7 @@ jobs:
       - uses: CemitDigital/trivy-report-issue-action@v1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          input-filename: 'result.json'
+          input-filename: "result.json"
           label: 'vulnerability'
           assignee: ''
           project-id: ''
