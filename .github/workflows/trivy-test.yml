@@ -14,9 +14,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - uses: knqyf263/trivy-issue-action@main
+        
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
         with:
-          severity: 'CRITICAL,HIGH'
+          scan-type: 'fs'
+          hide-progress: false
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: false
+          format: 'json'
+          output: 'result.json'
+      
+      - uses: CemitDigital/trivy-report-issue-action@v1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          input-filename: "result.json"
+          label: 'vulnerability'
           assignee: ''
           project-id: ''
