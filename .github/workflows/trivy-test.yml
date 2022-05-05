@@ -8,7 +8,7 @@ on:
     - cron: '0 12 * * *'
   push:
     branches:
-      - master
+      - main
   pull_request:
   
 jobs:
@@ -23,9 +23,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
-          hide-progress: false
           severity: 'HIGH,CRITICAL'
-          ignore-unfixed: true
           format: 'json'
           output: 'result.json'
       
