@@ -1,28 +1,32 @@
 {
-  "name": "gridsome-starter-bleda",
+  "name": "b34rd-blog",
   "private": true,
   "scripts": {
-    "build": "gridsome build",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' gridsome build",
     "develop": "gridsome develop",
     "explore": "gridsome explore",
-    "newpost": "node scripts/newPost.js"
+    "newpost": "node scripts/newPost.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@gridsome/plugin-google-analytics": "^0.1.2",
-    "@gridsome/plugin-sitemap": "^0.3.0",
+    "@gridsome/plugin-sitemap": "^0.4.0",
     "@gridsome/source-filesystem": "^0.6.2",
     "@gridsome/transformer-remark": "^0.6.2",
+    "cross-env": "^10.0.0",
     "gridsome": "^0.7.23",
-    "gridsome-plugin-remark-shiki": "^0.4.0",
+    "gridsome-plugin-remark-shiki": "^0.6.0",
     "gridsome-plugin-rss": "^1.2.0",
     "medium-zoom": "^1.0.6",
     "vue-disqus": "^4.0.1",
     "vue-parallaxy": "^1.1.1"
   },
   "devDependencies": {
+    "gh-pages": "^6.3.0",
     "moment": "^2.26.0",
     "postcss-import": "^12.0.1",
-    "postcss-nested": "^4.2.1",
-    "tailwindcss": "^1.4.6"
+    "postcss-nested": "^4.2.3",
+    "tailwindcss": "^1.9.6"
   }
 }
