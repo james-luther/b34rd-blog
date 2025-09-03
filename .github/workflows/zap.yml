@@ -24,7 +24,7 @@ jobs:
         with:
           ref: main
       - name: ZAP Scan
-        uses: zaproxy/action-full-scan@v0.3.0
+        uses: zaproxy/action-full-scan@v0.12.0
         with:
           docker_name: 'owasp/zap-stable'
           target: 'https://b34rd.tech/'
