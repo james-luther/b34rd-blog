@@ -26,5 +26,5 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-full-scan@v0.3.0
         with:
-          docker_name: 'softwaresecurityproject/zap-stable'
+          docker_name: 'owasp/zap-stable'
           target: 'https://b34rd.tech/'
