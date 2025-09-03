@@ -6,3 +6,10 @@ node_modules
 dist
 static/feed.xml
 .DS_Store
+
+# Claude Code files
+CLAUDE.md
+
+# Crush config
+CRUSH.md
+.crush/

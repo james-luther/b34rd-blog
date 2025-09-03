@@ -1,0 +1,77 @@
+name: Dependency Update Check
+
+on:
+  schedule:
+    # Run every Wednesday at 3 AM UTC
+    - cron: '0 3 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Check for outdated packages
+        id: outdated
+        run: |
+          echo "## Outdated Packages Report" >> outdated-report.md
+          echo "" >> outdated-report.md
+          npm outdated >> outdated-report.md 2>&1 || true
+          cat outdated-report.md
+
+      - name: Run npm update for minor and patch versions
+        run: |
+          npm update
+          npm audit fix
+
+      - name: Check if package-lock.json changed
+        id: check-changes
+        run: |
+          if git diff --exit-code package-lock.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check-changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(deps): update dependencies"
+          title: "chore(deps): Automated dependency updates"
+          body: |
+            ## Automated Dependency Update
+            
+            This PR contains automated updates for minor and patch versions of dependencies.
+            
+            ### Changes
+            - Updated package-lock.json with latest compatible versions
+            - Applied security fixes via `npm audit fix`
+            
+            ### Testing Checklist
+            - [ ] Build passes (`npm run build`)
+            - [ ] Development server starts (`npm run develop`)
+            - [ ] No console errors
+            - [ ] Site deploys successfully
+            
+            Please review and test before merging.
+          branch: automated-dependency-updates
+          delete-branch: true
+          labels: |
+            dependencies
+            automated
+            security
