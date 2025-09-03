@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "moment": "^2.26.0",
-    "postcss-import": "^12.0.1",
+    "postcss-import": "^16.1.1",
     "postcss-nested": "^4.2.1",
     "tailwindcss": "^1.4.6"
   }
