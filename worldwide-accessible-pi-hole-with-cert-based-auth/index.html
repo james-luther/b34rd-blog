@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" class="h-full" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D,%22class%22:%7B%22ssr%22:%22h-full%22%7D%7D">
+  <head>
+    <title>Worldwide Accessible Pi-Hole With Cert Based Auth!  | b34rd</title><meta name="gridsome:hash" content="7eea66335e3101fb2bdf96a4df7b72a3d5630259"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" data-key="description" name="description" content="Setup Raspberry Pi with pi-hole, squid, and cert authentication"><meta data-vue-tag="ssr" property="og:type" content="article"><meta data-vue-tag="ssr" property="og:title" content="Worldwide Accessible Pi-Hole With Cert Based Auth!"><meta data-vue-tag="ssr" property="og:description" content="Setup Raspberry Pi with pi-hole, squid, and cert authentication"><meta data-vue-tag="ssr" property="og:url" content="https://b34rd.tech/worldwide-accessible-pi-hole-with-cert-based-auth/"><meta data-vue-tag="ssr" property="article:published_time" content="2025-09-02"><meta data-vue-tag="ssr" property="og:image" content="https://pi-hole.net/wp-content/uploads/2016/12/pihole-main.png"><meta data-vue-tag="ssr" name="twitter:card" content="summary_large_image"><meta data-vue-tag="ssr" name="twitter:title" content="Worldwide Accessible Pi-Hole With Cert Based Auth!"><meta data-vue-tag="ssr" name="twitter:description" content="Setup Raspberry Pi with pi-hole, squid, and cert authentication"><meta data-vue-tag="ssr" name="twitter:site" content="@cossssmin"><meta data-vue-tag="ssr" name="twitter:creator" content="@cossssmin"><meta data-vue-tag="ssr" name="twitter:image" content="https://pi-hole.net/wp-content/uploads/2016/12/pihole-main.png"><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/assets/static/favicon.ce0531f.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/assets/static/favicon.ac8d93a.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/assets/static/favicon.b9532cc.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/assets/static/favicon.f22e9f3.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/assets/static/favicon.62d22cb.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/assets/static/favicon.1539b60.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/assets/static/favicon.dc0cdc5.56b5f3de807ec30e6680f6f2542ba6b9.png"><link data-vue-tag="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700%7CCardo"><link data-vue-tag="ssr" rel="stylesheet" href="https://lab.subinsb.com/projects/francium/cryptodonate/css/cryptodonate.css"><link rel="preload" href="/assets/css/8.styles.730b85d8.css" as="style"><link rel="preload" href="/assets/js/app.255b0f59.js" as="script"><link rel="preload" href="/assets/js/page--src--templates--post-vue.7a6fc996.js" as="script"><link rel="prefetch" href="/assets/js/10.76774a38.js"><link rel="prefetch" href="/assets/js/page--src--pages--404-vue.5ce5af52.js"><link rel="prefetch" href="/assets/js/page--src--pages--about-vue.ae2ad48a.js"><link rel="prefetch" href="/assets/js/page--src--pages--index-vue.2fc3f6b2.js"><link rel="prefetch" href="/assets/js/page--src--templates--author-vue.3aaae907.js"><link rel="prefetch" href="/assets/js/page--src--templates--tag-vue.f4742982.js"><link rel="prefetch" href="/assets/js/vendors~page--src--pages--index-vue~page--src--templates--author-vue~page--src--templates--post-vue~~a0fae544.402a1eb1.js"><link rel="prefetch" href="/assets/js/vendors~page--src--templates--post-vue.7409c761.js"><link rel="stylesheet" href="/assets/css/8.styles.730b85d8.css"><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body class="antialiased font-serif" data-vue-tag="%7B%22class%22:%7B%22ssr%22:%22antialiased%20font-serif%22%7D%7D">
+    <div data-server-rendered="true" id="app"><main><header><div class="post-cover overflow-hidden relative max-h-cover"><div class="max-w-xl md:max-w-3xl xl:max-w-4xl text-center px-6 absolute z-10 mx-auto bottom-0 inset-x-0 pb-16"><div class="m-auto"><p class="text-white text-xs mb-2 uppercase">18 min read</p><h1 class="text-3xl sm:text-5xl font-sans font-bold leading-tight mb-2 text-white">Worldwide Accessible Pi-Hole With Cert Based Auth!</h1><p class="text-white"><span><a href="/author/b34rd/" class="text-white capitalize border-b border-transparent hover:border-white transition-colors duration-300">B34rd</a> •
+          </span><time datetime="2020-03-29 00:00:00" class="capitalize">29 March, 2020</time></p></div></div><!----></div><nav class="absolute top-0 left-0 z-20 mt-6 ml-6"><a href="/" class="text-sm border opacity-75 hover:opacity-100 rounded-full px-4 py-2 transition-opacity duration-300 active text-white border-white">← Home</a></nav></header><article class="max-w-xl md:max-w-2xl xl:max-w-3xl mx-auto px-6 sm:px-12 pt-16"><div role="alert" class="leading-normal p-4 md:mx-6 mb-12 bg-orange-100 border-l-4 border-orange-500 text-orange-900">
+        This post is over a year old, some of this information may be out of date.
+      </div><div class="markdown text-lg leading-normal text-gray-700 pb-10"><p>Ok, ok, I know it sounds crazy! But please, hear me out on this one. What we are going to do is take a Pi 4, install Raspbian Lite, PiHole, Squid, Webmin, and AutoSSH. With these things and a free instance in Google Cloud Platform we can have some fun!</p>
+<p><img src="https://miro.medium.com/max/1400/1*BJk1CHSD9-Sc8R0FjG2hYg.png" alt="alt text" title="Pi-Hole"></p>
+<hr>
+<h3 id="hardware-and-initial-setup"><a href="#hardware-and-initial-setup" aria-hidden="true"><span class="icon icon-link"></span></a><a href="#header-3"></a>Hardware and Initial Setup</h3>
+<p>First things first, we need to gather up the hardware we need. I’m using a Raspberry Pi 4 to get the true gigabit connection but this will work on all models with a few different tweaks. Other than the Pi, we need ethernet cable, micro sdcard, power connector, and case/accessories of your choice. We also need an internet connected computer to download Raspbian Lite.</p>
+<p>Now that we have all of our stuff. Let’s get started with downloading. Head over to <a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="nofollow noopener noreferrer">https://www.raspberrypi.org/downloads/raspbian/</a> and download Raspbian Buster Lite (or the most recent one if something is newer)</p>
+<p><img src="https://miro.medium.com/max/1400/1*Rchwe29P3ksSH5EYMMPJvg.png" alt="alt text" title="This is what we are looking for"></p>
+<p>Once this is downloaded we need to copy it over to our sdcard. There are a few ways to do this and the amazing people over at raspberrypi.org wrote excellent directions based on whichever operating system you are using. Once the copy is completed we need to add one thing to our boot partition. Create an empty file and name it “SSH”. This will enable ssh on first boot and you can use the Pi completely headless.</p>
+<p>Now that we have this all done, connect directly to your main switch/router/connection to the outside world and power on.</p>
+<p>After a bit of time you can check your DHCP server for what IP address your device was allocated. We can then ssh over with</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ ssh pi@ip_address</span></span></code></pre>
+<p>Once we are logged in there are a few things I recommend doing before proceeding.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo raspi-config</span></span></code></pre>
+<p>Ensure locale and any other specific things you want are configured. Also we need to go into advanced settings and allocate less memory for GPU to ensure our little device has the most RAM it can have to accomplish tasks. I am using 16 on my Pi4 but on lower models I suggest 8.</p>
+<p>Next we need to do the obligatory</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo apt-get update &amp;&amp; sudo apt-get -y upgrade &amp;&amp; sudo apt-get -y dist-upgrade</span></span></code></pre>
+<p>This will ensure we are all up -to-date before we begin.</p>
+<p>Still with me? If so, awesome, if not, well, you’re not reading so it doesn’t matter. From here I’m going to install pre-requisites for pihole, webadmin, and squid. I am going to be running squid as a web caching proxy, pihole to block all the ads, and webadmin to manage the pi remotely from a browser. I will list which items are for which so you can exclude items if you don’t want the services.</p>
+<hr>
+<h3 id="pi-hole"><a href="#pi-hole" aria-hidden="true"><span class="icon icon-link"></span></a><a href="#header-3"></a>Pi-Hole</h3>
+<p><img src="https://miro.medium.com/max/1098/1*yGEV1VBZD_lQ_oU8oXZ1cw.png" alt="alt text" title="Pi-Hole Logo"></p>
+<p>First, let’s begin with Pi-Hole!</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo apt-get -y install git
+$ git clone --depth 1 https://github.com/pi-hole/pi-hole.git Pi-hole
+$ cd &quot;Pi-hole/automated install/&quot;
+$ sudo bash basic-install.sh</span></span></code></pre>
+<p>The installation for Pi-hole is very straight forward. Follow the on-screen prompts, answer questions, and you are good to go. Once we have this setup and configured how we want there are a couple changes we need to make.</p>
+<p>First, I’m going to modify lighttpd to only listen on localhost.</p>
+<p><img src="https://miro.medium.com/max/1400/1*wa7kMq5LgO5mHWw7aaGBuA.png" alt="alt text" title="Lighttpd Directory"></p>
+<p>To do this we need to do the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vi /etc/lighttpd/external.conf</span></span></code></pre>
+<p>From here we just add the line:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">server.bind=&quot;127.0.0.1&quot;</span></span></code></pre>
+<p>Save the file and restart the service.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl restart lighttpd.service</span></span></code></pre>
+<p>We aren’t finished. If you notice, this will not allow you to access your device through a proxy. To remedy this problem we need to edit another file.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vi /var/www/html/pihole/index.html</span></span></code></pre>
+<p>We need to change line 10 to match the following</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$serverName = htmlspecialchars($_SERVER[&quot;SERVER_ADDR&quot;]);</span></span></code></pre>
+<p>We also need to edit auth.php</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vi /var/www/html/admin/scripts/pi-hole/php/auth.php</span></span></code></pre>
+<p>Under the following section you MAY need to add your FQDN to ensure all configuration changes, logins, etc through the proxy function. You can test as needed.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$AUTHORIZED_HOSTNAMES = array(
+        $ipv4,
+        $ipv6,
+        str_replace(array(&quot;[&quot;,&quot;]&quot;), array(&quot;&quot;,&quot;&quot;), $_SERVER[&quot;SERVER_NAME&quot;]),
+        &quot;pi.hole&quot;,
+        &quot;localhost&quot;
+    );</span></span></code></pre>
+<p>For me, I needed to ensure localhost was listed since we are using localhost to access the server through the proxy.</p>
+<p>We are now able to access the dashboard through a proxy. If this is all you want to implement, skip ahead to the Google Cloud configuration and the AutoSSH configuration. For now, I’m going ahead into squid and webmin.</p>
+<hr>
+<h3 id="squid"><a href="#squid" aria-hidden="true"><span class="icon icon-link"></span></a><a href="#header-3"></a>Squid</h3>
+<p><img src="https://miro.medium.com/max/1400/1*8JCkAUbkUcaMWCXnUgzJrA.png" alt="alt text" title="Squid"></p>
+<p>Squid is a web cache proxy. I LOVE it! Anyway, how I configure it works really well for me, you can honestly adjust everything as you like.</p>
+<p>To begin we need to install squid and all the parts of it we will be using later.</p>
+<p>Since we have Pi-Hole installed we don’t need to worry about a static ip address. If you are only here for squid, well, USE STATIC IP!</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo apt-get -y install squid squid-cgi calamaris squidclient</span></span></code></pre>
+<p>This will require some additional packages but they will be installed with these.</p>
+<p><strong> I’m using squid-cgi to view data via webmin. If you don’t wish to use webmin you can just go with squidclient and monitor via command line*</strong></p>
+<p>Let’s get to configuring our proxy!</p>
+<p>Best thing to do at the start is backing up the default configuration in case we mess up everything.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo cp /etc/squid/squid.conf /etc/squid/squidoriginal.conf.bak</span></span></code></pre>
+<p>Now we need to edit the config. Here there are only a few options to enable/change. I prefer vim if you haven’t noticed from previous things or even my usage here. To search you just use a ‘/’. If you prefer nano you need to use ‘ctrl’ + ‘w’. Either way find the sections and edit/add lines as needed. Most of these are editing current ones minus the acl ones.</p>
+<p>First thing first! ACL! Most private CIDR address spaces are covered. I recommend commenting all of these out and adding your own to reflect your network. Mine is:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">acl localnet 192.168.2.0/24</span></span></code></pre>
+<p>Ensure we have the acl allowed</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">http_access allow localnet</span></span></code></pre>
+<p>Now adjust dns</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">Find: # dns_v4_first off remove the # symbol and change off to on.</span></span></code></pre>
+<p>The remaining changes I’m making are as follows:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">Cache_mem 256
+MBMaximum_object_size 4096
+MBMaximum_object_size_in_memory 8192
+KBCache_dir ufs /var/spool/squid = 8192 </span></span></code></pre>
+<p>Now we save and exit. Then we backup this configuration just to be safe.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo cp /etc/squid/squid.conf /etc/squid/mysquid.conf.bak</span></span></code></pre>
+<p>After this we can start our proxy</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl start squid</span></span></code></pre>
+<p>Squid is now up and running! From here I’m going to configure webmin to manage this as well the rest of my pi remotely. You can leave it here or continue along.</p>
+<hr>
+<h3 id="webmin"><a href="#webmin" aria-hidden="true"><span class="icon icon-link"></span></a><a href="#header-3"></a>Webmin</h3>
+<p><img src="https://miro.medium.com/max/1400/1*Uj85QkRucFxt7k_W5u3PRw.png" alt="alt text" title="Webmin"></p>
+<p>So.. personally, I’m not the biggest fan of this software. I think it is a lot of overkill for what we need. It does however make things very easy. We are going to cheat in installing this a bit. It seems odd but trust me, it makes our life easier.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ cd ~ 
+$ mkdir webmin-download
+$ cd webmin-download
+$ wget http://www.webmin.com/download/deb/webmin-current.deb
+$ sudo dpkg -i webmin-current.deb </span></span></code></pre>
+<p>This is going to error saying we are missing dependencies. That’s perfect. We want that to happen. Now we can go ahead and install dependencies and webmin with the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo apt-get -f install</span></span></code></pre>
+<p>Now webmin is all installed as well as our required packages. Simple right?!</p>
+<p>We do have some configuration to do here to allow us to manage squid from webmin as well as make it only listen on localhost.</p>
+<p>Let’s browse over to our Pi and open the webmin page.</p>
+<p><a href="https://IP_OF_PI:10000" target="_blank" rel="nofollow noopener noreferrer">https://IP_OF_PI:10000</a></p>
+<p>The login will be username and password of your pi. By default this is pi:raspberry.</p>
+<p>Next we need to go to the left and find squid under unused modules section. In here we need to adjust the paths to everything and adjust the startup, stop, and restart script sections.</p>
+<p><img src="https://miro.medium.com/max/1352/0*wpLGTjxNhDKryMUL" alt="alt text" title="Squid Config"></p>
+<p>The highlighted sections you will need to make match your install. For my install I had to change all from squid3 to squid and the scripts all to the corresponding systemctl ones. For example:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">service start squid</span></span></code></pre>
+<p>changes to</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">systemctl start squid</span></span></code></pre>
+<p>I’m confident you can change the rest. Depending on webmin version you will have some additional prompts to change. I had none.</p>
+<p>We can now manage our squid server via webmin and add more things as well as adjust ssh settings, monitor pi, and all sorts of fun little things. From here we are going to make some additional adjustments for our installation to only listen locally and work through a proxy server.</p>
+<p>The MOST important thing is to adjust access controls.</p>
+<p>In here we want to go to proxy restrictions tab and ensure manager is not denied. If so, we will not be able to access settings once we connect to our proxy server.</p>
+<p>This is what mine looks like:</p>
+<p><img src="https://miro.medium.com/max/1400/1*uMKELXgysR3CI5HI8Hf8RQ.png" alt="alt text" title="My configuration"></p>
+<p>From here we are going to go into webmin configuration. Look to the left pane and click webmin section and select webmin configuration.</p>
+<p>In this section we will be disabling SSL. The other options are easier to do in the config file itself. We can actually do all of these changed in config files but selecting a radio button I find easier than searching for a line in a config file and editing.</p>
+<p><img src="https://miro.medium.com/max/1400/1*qOJwwSC0sbDQmDvdCGbuIw.png" alt="alt text" title="Webmin Configuration"></p>
+<p>Select SSL Encryption and under Enable SSL? select NO</p>
+<p>Yes, I know this seems like a bad idea, but don’t worry. We are going to handle our own SSL later.</p>
+<p><img src="https://miro.medium.com/max/1400/1*weVJ_MGv0IaOOUWMYtbGaA.png" alt="alt text" title="SSL Configuration"></p>
+<p>Save settings and we are now going to ssh into our pi. From here we will execute the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ cd /etc/webmin
+$ ls </span></span></code></pre>
+<p><img src="https://miro.medium.com/max/1400/1*hAoFAzZWZ9tO0iuP6rtozA.png" alt="alt text" title="Webmin Folder"></p>
+<p>We need to edit the file called config and add some lines to the bottom.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vi config</span></span></code></pre>
+<p>We will then add the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">referer_none=1
+referer=1
+referers=127.0.0.1</span></span></code></pre>
+<p>Once this is done, save file and exit. Now restart webmin</p>
+<p><img src="https://miro.medium.com/max/772/1*lo29kgQGz0CARUpbVkYnSg.png" alt="alt text" title="Webmin Config File"></p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl restart webmin</span></span></code></pre>
+<p>We will now only be able to access our webmin page via proxy.</p>
+<hr>
+<p>Time to get started with SSL. We are going to setup our own CA here and generate some user certificates. I know this guide is a bit long but this part ensures all ourinternet accessible stuff is as secure as possible.</p>
+<p><img src="https://miro.medium.com/max/1400/1*Y_6jv8KwO4Dny4r3MxNpig.png" alt="alt text" title="OpenSSL"></p>
+<p>I HIGHLY recommend you put your CA on a non-internet connected device. If you must put it on something that is connected, ensure you secure things. If your CA is compromised your organization is compromised. The guide I’m giving is on Linux using OpenSSL. There are a lot of things that are up to personal preference and you can adjust as you see fit.</p>
+<p>You can do all of this in whatever directory you choose. I’m just working in /root and will be giving a very quick setup. First we need to create our openssl.conf. Mine looks like this:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">[ ca ]
+default_ca = CA_default                 # The name of the CA configuration to be used.
+                                        # can be anything that makes sense to you.
+[ CA_default ]
+dir = /etc/ssl/ca                       # Directory where everything is kept
+certs = $dir/certs                      # Directory where the issued certs are kept
+crl_dir = $dir/crl                      # Directory where the issued crl are kept
+database = $dir/index.txt               # database index file.
+#unique_subject = no                    # Set to &#39;no&#39; to allow creation of
+                                        # several certificates with same subject.
+new_certs_dir = $dir/certs              # Default directory for new certs.
+
+certificate = $dir/ca.crt               # The CA certificate
+serial = $dir/serial                    # The current serial number
+crlnumber = $dir/crlnumber              # The current crl number
+                                        # must be commented out to leave a V1 CRL
+crl = $dir/crl.pem                      # The current CRL
+private_key = $dir/private/ca.key       # The private key
+RANDFILE    = $dir/private/.rand        # private random number file
+
+x509_extensions = usr_cert              # The extentions to add to the cert
+
+name_opt = ca_default                   # Subject Name options
+cert_opt = ca_default                   # Certificate field options
+
+default_days     = 365                   # how long to certify for
+default_crl_days = 30                    # how long before next CRL
+default_md       = sha1                  # use public key default MD
+preserve         = no                    # keep passed DN ordering
+
+policy = policy_match</span></span></code></pre>
+<p>You obviously will want to adjust things as needed here for your configuration. Now I’m going to create some files. Again, I’m logged in as root.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">mkdir -p /etc/ssl/ca/certs/users &amp;&amp; \
+mkdir /etc/ssl/ca/crl &amp;&amp; \
+mkdir /etc/ssl/ca/private</span></span></code></pre>
+<p>Next, we’ll create the reference files for the configuration. The database index file can be created empty. The CRL number file, on the other hand, will be expected by OpenSSL to have the first number in it:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">touch /etc/ssl/ca/index.txt &amp;&amp; echo ’01’ &gt; /etc/ssl/ca/crlnumber</span></span></code></pre>
+<p>Finally, we’ll create our server certificates and the certificate revocation list for the CA. We’ll set an expiration of one year in our example. Again, you can set this up however you like based on your environment.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">openssl genrsa -des3 -out /etc/ssl/ca/private/ca.key 4096
+
+openssl req -new -x509 -days 1095 \
+    -key /etc/ssl/ca/private/ca.key \
+    -out /etc/ssl/ca/certs/ca.crt
+
+openssl ca -name CA_default -gencrl \
+    -keyfile /etc/ssl/ca/private/ca.key \
+    -cert /etc/ssl/ca/certs/ca.crt \
+    -out /etc/ssl/ca/private/ca.crl \
+    -crldays 1095</span></span></code></pre>
+<p>Whew! We got that done. Now to get to generating user certificates.</p>
+<p>All we need to do is the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">openssl genrsa -des3 -out /etc/ssl/ca/certs/users/USERNAME.key 1024
+
+openssl req -new -key /etc/ssl/ca/certs/users/USERNAME.key \
+    -out /etc/ssl/ca/certs/users/USERNAME.csr
+
+openssl x509 -req -days 1095 \
+    -in /etc/ssl/ca/certs/users/USERNAME.csr \
+    -CA /etc/ssl/ca/certs/ca.crt \
+    -CAkey /etc/ssl/ca/private/ca.key \
+    -CAserial /etc/ssl/ca/serial \
+    -CAcreateserial \
+    -out /etc/ssl/ca/certs/users/USERNAME.crt
+
+openssl pkcs12 -export -clcerts \
+    -in /etc/ssl/ca/certs/users/USERNAME.crt \
+    -inkey /etc/ssl/ca/certs/users/USERNAME.key \
+    -out /etc/ssl/ca/certs/users/USERNAME.p12</span></span></code></pre>
+<p>Obviously adjust names, paths, etc based on what you are doing. If everything was configured correctly, we are 100% good to go!! Remember based on OpenSSL versions, Linux distribution, etc your experience may vary. This is only a rough guide on how to do this.</p>
+<hr>
+<p>To the cloud!!</p>
+<p><img src="https://miro.medium.com/max/556/1*pU5dtthop4tgAISuR742EQ.png" alt="alt text" title="Google Cloud"></p>
+<p>You can use any cloud platform or even a server with static IP address for this part if you choose. I’m going with Google Cloud Platform because, well, there is a free tier that is perfect for this type of thing. This is going to be a guide on setting up your instance, installing nginx, configuring nginx, and setting up SSL. We will need some things from our CA in a bit.
+Google Cloud Platform
+Google Cloud Platform lets you build, deploy, and scale applications, websites, and services on the same infrastructure…
+console.cloud.google.com</p>
+<p>Here you will need a Google account. If you are averse to Google, I apologize. Once here, you will need to setup billing. What we are doing is in the free tier so you won’t be charged BUT you need to have billing configured to allow creation of the things we are doing. Once your cloud billing and account is all setup we can begin.</p>
+<p>We need to create a new project. Once you have your project created we need to click on compute engine in the left side menu.</p>
+<p><img src="https://miro.medium.com/max/1400/1*8EJg7W36vN2YyXFqqe5R6A.png" alt="alt text" title="Compute Engine"></p>
+<p>Don’t worry about the submenu. We are just going to Compute Engine section. On the top of this page we need to select Create Instance</p>
+<p><img src="https://miro.medium.com/max/1400/1*SeeRpVBn66aLtXA0WWsHFw.png" alt="alt text" title="Create Instance"></p>
+<p>You will be greeted by a page that looks something like this:</p>
+<p><img src="https://miro.medium.com/max/1400/1*rVm8miIjyxMmfLcwbauNTQ.png" alt="alt text" title="New Instance"></p>
+<p>Ignore the price and everything for now. We are going to make a bunch of selections and the price will still say something when finished. Every account though is allowed one micro instance for free.</p>
+<p>Things to setup. First, we must name our instance. Next we need to change Machine type to f1-micro. There should be one option. This will make changes to region, zone, and boot disk. You can make adjustments to all of these as you see fit but ensure you are in us-central region and the machine type stays f1-micro. If those change you will be billed for your virtual machine.</p>
+<p>Once options are selected go ahead and create your instance and wait for it to finish.</p>
+<p>During this time, if you are familiar with Google Cloud Platform you can change settings to meet your needs, if you aren’t, I recommend using this time to just browse through your options and read up on what the free tier includes. There is A LOT of things you can do.</p>
+<p>Once our instance is complete we just click the SSH icon next to it. Your screen should look something like this:</p>
+<p><img src="https://miro.medium.com/max/1400/1*8cW9tzFMaFHhJKNiPI-f-g.png" alt="alt text" title="Our Instance"></p>
+<p>If you added any extra keys or anything they are being copied over. Once we are logged in we need to do our usual house items such as updates and installation of packages.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo apt-get update &amp;&amp; sudo apt-get -y upgrade &amp;&amp; sudo apt-get -y dist-upgrade$ sudo apt-get install nginx certbot</span></span></code></pre>
+<p>From here I recommend setting up ssh keys. You can generate them on your cloud instance or on your pi and copy them over. You just need to run</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ ssh-keygen</span></span></code></pre>
+<p>And follow the on screen prompts. Your pi and cloud instance will need to share a key in order to perform ssh port forwarding we are going to setup. From here we need the key shared with our pi and added into the Cloud Console. If you don’t add to the Google Cloud platform the keys will not be persistent on your vm. To add them select the Metadata section under Compute Engine and then Select the SSH Keys tab to add your key.</p>
+<p><img src="https://miro.medium.com/max/1052/1*6tXnjOHirPfeQSzgMXTLKA.png" alt="alt text" title="Metadata Page"></p>
+<p>Now I’m going to hop over to our pi and configure AutoSSH.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo apt-get install autossh</span></span></code></pre>
+<p>Once we have this finished we need to ensure we can ssh over to our cloud instance from our pi with the key we generated. If this is not working, troubleshoot and come back. I know I had some spacing issues the first time adding the key to the metadata section.</p>
+<p>Once ssh works we need to test autossh via command line. The command and options I used are:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ autossh -M 0 -o &quot;ServerAliveInterval 30&quot; -o &quot;ServerAliveCountMax 3&quot; -R 10000:localhost:10000 user@instance -f -T -Nautossh -M 0 -o &quot;ServerAliveInterval 30&quot; -o &quot;ServerAliveCountMax 3&quot; -R 8080:localhost:80 user@instance -f -T -N</span></span></code></pre>
+<p>As you can see that is for forwarding my webmin port in the first command and the pihole port in second. We need to go over to our Google instance and verify ports are listening on localhost.</p>
+<p>I do this with:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo netstat -antp</span></span></code></pre>
+<p>I use sudo with those switches to see what process is running what. Anything outside your user will not show pid and process name.</p>
+<p><img src="https://miro.medium.com/max/1400/1*9Q_A1wYjEbbLTvbFDKHWGA.png" alt="alt text" title="Netstat Output"></p>
+<p>And we are working!! Now let’s make autossh into a service so our pi will connect and maintain that connection. Back to the Pi!</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ cd /etc/systemd/system</span></span></code></pre>
+<p>Here we need to create two files for our two different autossh commands</p>
+<p>You can name them whatever you want but mine are autossh-pihole.service and autossh-webmin.service. I’m going to just show one and you can then make the changes you need for the second.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vi /etc/systemd/system/autossh-pihole.service</span></span></code></pre>
+<p>The contents of this file should look as follows:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">[Unit]
+Description=AutoSSH tunnel service pihole
+After=network.target
+
+[Service]
+Environment=&quot;AUTOSSH_GAMETIME=2&quot;
+User=pi
+ExecStart=/usr/bin/autossh -M 0 -N -o &quot;ServerAliveInterval 30&quot; -o &quot;ServerAliveCountMax 3&quot; -p 22 -R 8080:localhost:80 user@instance -i /home/pi/.ssh/id_rsa
+
+[Install]
+WantedBy=multi-user.target</span></span></code></pre>
+<p>You can place your ssh key wherever you like and use whatever user you like. I HIGHLY recommend using a non-shell, non-privileged user you create. That way if anyone is able to obtain the key and hit your pi they aren’t able to do anything with it. The same on your Google Cloud Instance. Maybe add a user called autossh with no shell. Anyway, once we have this file, save it and quit. Then create the one for webmin. One both are complete…</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl daemon-reload
+$ sudo systemctl enable autossh-pihole.service
+$ sudo systemctl enable autossh-webmin.service
+$ sudo systemctl start autossh-pihole.service
+$ sudo systemctl start autossh-webmin.service</span></span></code></pre>
+<p>From here we verify services started ok with</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl status autossh-pihole.service 
+$ sudo systemctl status autossh-webmin.service</span></span></code></pre>
+<p>If everything looks good we bounce back over to our Google Instance. First we verify that the ports are listening as expected. If so, we go to configuring NGINX!!</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ cd /etc/nginx</span></span></code></pre>
+<p>We need to create two files for our webmin and pihole services in the sites-available folder. We need to make sure they match either our IP address or FQDN. If you want DNS resolution you need to add A records in your DNS for your domain. For example my domain is b34rd.tech. I added two A records. One for pihole and one for webmin. So my files in sites-available are webmin.b34rd.tech and pihole.b34rd.tech.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vim /etc/nginx/sites-available/webmin.b34rd.tech</span></span></code></pre>
+<p>In here we need to add the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">server {
+    server_name webmin.yourdoain.com;
+    listen 80;    location / {
+        proxy_pass http://127.0.0.1:10000;
+    }
+}</span></span></code></pre>
+<p>For pihole we do similar:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo vim /etc/nginx/sites-available/pihole.b34rd.techserver {
+    server_name pihole.yourdomain.com;
+    listen 80;    location / {
+        return 301 http://$host$request_uri/admin;
+    }    location /admin {
+        proxy_pass http://127.0.0.1:8080;
+    }
+}</span></span></code></pre>
+<p>No, we still don’t have SSL configured. BUT we can verify connectivity here.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo ln -s /etc/nginx/sites-available/pihole.b34rd.tech /etc/nginx/sites-enabled/$ sudo ln -s /etc/nginx/sites-available/webmin.b34rd.tech /etc/nginx/sites-enabled/$ sudo nginx -t</span></span></code></pre>
+<p>If you don’t receive output like this:</p>
+<p><img src="https://miro.medium.com/max/1400/1*mq96ywg5v_Dw27YBKd9wNQ.png" alt="alt text" title="Nginx Verification"></p>
+<p>You need to verify syntax in your files.</p>
+<p>Let’s start up nginx!</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl enable nginx$ sudo systemctl start nginx</span></span></code></pre>
+<p>Here we can browse to our cloud instance IP or our FQDN. We will be able to access our applications!</p>
+<p>Now we need to secure them. Luckily with certbot this is simple!</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo certbot --nginx -d pihole.yourdomain.com -d webmin.yourdomain.com</span></span></code></pre>
+<p>There will be on-screen prompts showing you status. Answer questions and select YES on redirect all to https. This will edit our config files for us to include all valid SSL certificates. We can restart nginx and verify this once again.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl restart nginx</span></span></code></pre>
+<p>If we are able to browse, are redirected to https we are almost done. We have one final step! Remember when I said we need some files from our CA. Here’s where they come in.</p>
+<p>We need to copy the following from our CA to our Cloud Instance:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">ca.crl
+ca.crt</span></span></code></pre>
+<p>I put these files in the following locations:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">/etc/ssl/client/ca.crt
+/etc/ssl/client/ca.crl</span></span></code></pre>
+<p>You can put them anywhere you like but make sure you remember where you put them. We also need to copy the USER.p12 we created to our client machine. Whether that is a PC, Laptop, or Mobile we will need it.</p>
+<p>Final edit. In our sites-available in nginx we need to add the following:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff"># Client Cert Config
+ssl_client_certificate /etc/ssl/client/ca.crt;
+ssl_crl /etc/ssl/client/ca.crl;
+ssl_verify_client on;</span></span></code></pre>
+<p>I personally add this to the first server section in the files. My pihole config looks like this now:</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">server {
+    server_name pihole.yourdomain.com;location / {
+        return 301 http://$host$request_uri/admin;
+    }location /admin {
+        proxy_pass http://127.0.0.1:8080;
+    }listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/pihole.yourdomain.com
+    /fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/pihole.yourdomain.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot# Client Cert config
+    ssl_client_certificate /etc/ssl/client/ca.crt;
+    ssl_crl /etc/ssl/client/ca.crl;
+    ssl_verify_client on;}
+server {
+    if ($host = pihole.yourdomain.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbotlisten 80;
+    server_name pihole.b34rd.tech;
+    return 404; # managed by Certbot}</span></span></code></pre>
+<p>You will need to ensure you add this to your webmin file also and restart nginx one final time.</p>
+<pre class="shiki" style="background-color: #ffffff"><code><span class="line"><span style="color: #24292eff">$ sudo systemctl restart nginx </span></span></code></pre>
+<p>Now browse to your applications same as before. You will receive an error. Import your .p12 file into your client and browse again.</p>
+<p>BAM! Certificate authentication for your applications!!</p>
+<p>Future considerations..</p>
+<p>So, as I said earlier using specific users for autossh is super important. That is the first thing I would suggest doing if you didn’t already do so.</p>
+<p>Second, make nginx not disclose so much information. Setup custom error pages.</p>
+<p>Third, add some CSRF and other security features in nginx.</p>
+<p>Of course maintain patches and follow hardening guides for your pi and your cloud instance as well as nginx, lighttpd, and webmin.</p>
+<p>Also, add some IDS/IPS tools to your cloud instance. At least install Fail2Ban</p>
+</div><footer class="flex flex-wrap pb-10 sm:pb-16"><div><a href="/tag/raspberry%20pi/" class="inline-block text-teal-400 hover:text-white hover:bg-teal-400 border border-teal-400 font-sans font-bold text-xs sm:text-sm px-4 py-2 mr-4 mb-2 rounded-full transition-colors duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img" class="inline w-3 fill-current align-middle mr-1"><path d="M0 10V2l2-2h8l10 10-10 10L0 10zm4.5-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></svg>
+            raspberry pi
+          </a><a href="/tag/pihole/" class="inline-block text-teal-400 hover:text-white hover:bg-teal-400 border border-teal-400 font-sans font-bold text-xs sm:text-sm px-4 py-2 mr-4 mb-2 rounded-full transition-colors duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img" class="inline w-3 fill-current align-middle mr-1"><path d="M0 10V2l2-2h8l10 10-10 10L0 10zm4.5-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></svg>
+            pihole
+          </a><a href="/tag/squid/" class="inline-block text-teal-400 hover:text-white hover:bg-teal-400 border border-teal-400 font-sans font-bold text-xs sm:text-sm px-4 py-2 mr-4 mb-2 rounded-full transition-colors duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img" class="inline w-3 fill-current align-middle mr-1"><path d="M0 10V2l2-2h8l10 10-10 10L0 10zm4.5-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></svg>
+            squid
+          </a><a href="/tag/openssl/" class="inline-block text-teal-400 hover:text-white hover:bg-teal-400 border border-teal-400 font-sans font-bold text-xs sm:text-sm px-4 py-2 mr-4 mb-2 rounded-full transition-colors duration-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="img" class="inline w-3 fill-current align-middle mr-1"><path d="M0 10V2l2-2h8l10 10-10 10L0 10zm4.5-4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path></svg>
+            openssl
+          </a></div><div class="flex flex-wrap items-center justify-center sm:justify-left border-t border-b border-gray-300 w-full mt-10 py-10 sm:px-16"><figure class="px-2 mb-1 sm:mb-0 w-full sm:w-1/5 flex justify-center"><a href="/author/b34rd/"><img src="/images/authors/b34rd.png" alt="b34rd" width="100" class="rounded-full p-4 sm:p-0"></a></figure><div class="px-4 sm:w-4/5 text-center sm:text-left"><h4 class="font-sans font-bold text-lg sm:text-xl mb-2 sm:mb-4"><a href="/author/b34rd/" class="text-black hover:text-gray-600 capitalize border-b-2 border-transparent transition-colors duration-300">
+                B34rd</a></h4><p class="leading-normal"><a href="/author/b34rd/" class="text-blue-500 hover:text-blue-400 transition-colors duration-300">See all posts by
+                B34rd →</a></p><p><a href="https://www.buymeacoffee.com/b34rd" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height:60px !important;width:217px !important;"></a></p><table><tr><td id="btc"><button class="cryptodonate-btn">Donate<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAdhAAAHYQGVw7i2AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAABodJREFUWIWdl2tsHFcZht9zmZmd2Zu99tqYpGlaVAmkBghC5SIa0VIpIMEfqqA29JKQQlIhQUQpoJK0LpHaglCgSCgSKhcXlYq2KlIrUqA/DJGoeqECRKtWgkqJbeL4trve2Z3ZmXP5+OHsem3v2hbn1zl7vnnfZ8585ztnGbbZaBI5tLAPhBtBuB4MuwGMACAA8wCmdS2/SKnzluPxH7JbFy9uR5dtafx7vAsM9wA4BiDXM0ZJqMVBmKZ/WZXAM623RVYdcw7W/vJ/AdAkJGLcD+BeAJneQQyqWoCuFgDqJUUQ2fgVV5v97Gh1edsA9EdcAYPfAPhEP0DT9KEWB0FK9gtZNXF0S/rRfudQ7dyWAPQHfAAWLwIo94RTEmphECbytzReY8St5dn4gHd46dm+AHQW7wHwMoDhjc4MulqA6lpu7qUhKZElK/i2IIS1ohh/1L1t6bUNADSJDGK8BuDa9Q/2W25ZWP6w1bScTrn/dnfx87DMt4k72jsf0IZe9pJLo+xrSABglTzGqfXmpCTS2TLS2TJISfBMughhCQCYq1P30PLrdpk/oCot6Gr8PU+YDyVTIUjbvgA2cYtJtvynDhDQWfqvrzoz6GoRramxztZirk4zX7lU9oOZQBbrh2QQnwQAE7F94ED21fDxOFTftbFGOl3fHCLK7EsmBt/fvQLfBuCsCPpoTY1BLRXXbC1GsMlEaRxOyXXvrE04d1R/AAD5k9Ur3d3yk+xpmKRqbgIAqyzSmRBk+kAQA7T42YruWRQAzJKWgVroKiZ9mgjif3p3LXwQAOjyCzCg41R7KPsdFspxHRqPuwLuzjyY7JGjnMgfi3dwGPFZXSkErQtjW5oDABNUbfdnjzhfvHCQ6ek7xTsXDznHAGDgvuYjxYeXM86QmLep6b8SljEV2nt5Ojd0n6oM9KlkvQjsc+0uWToAEDPKXJ2m6szMYed0e05ZcyMA2NQgne4NQVru52TE7u05A2AER+uJ9tBYe11nijEA+Hh7PHSq8WbSWjG1qUEys3F3kBFXclJ82yWNu6rO7qpX2mNPyr9mC8Fb+YHsYm4w+w8/8I6058LTg7fUKwatmFbMksufowuCNPcl0faqGABAmn91D0d/nt4MpBvCogl/x+Ir6lcgIKxooCSR8RnaOdFOTLKcb32SdDXh6ufb/ZkvOWdg6CNc4Kmxon6U/QgxANBT5dzMZPyf6JLy2rF9IRwGzrjtXzHWNIIk9cvOSNvPa6X3pi398PQCC6ePuA8CAPvCQqMwyne4RblGN6zozuewqUHy3xDMGsuZNPFmtkwYy4Ql7qU1dkdjHgDoAFyrbee0tJaEidP7Z76KIQAojtcruZ385fVaYUUjibpyYq5pOZN6ejMAEcQ/yZRnMt7sXMfwYs69mUCMCw7pCLieAy9wIy9eTQgmWNRLr15dhYBAKBnXLwJ4b093TmRC9ax7eG2mOY30eW809ynGaC8Du4rAEqbtROlMGrZjdAN7+71UvaqRZxKZAr3NoidLV2ApOwXbuxBFC3WoetPKvFj0hvmXC8ej53oGdhuczl8/96o+Z5L+6cUFw/C1cg8Pbq1Mi6D1er/AoFyAW8jyeL41wjS5yycK18zenVXz4/mHAIDGsWYb135cPFp5k/68mTkA+KOyVhpvvCEBgPH0KFjmb/3KsV8ugDuw+W/Wnln4ljzrCiZtiiGahDz/mFDv3O6RcBjplPjcuRaINvUG4wzZUdwNdN2Ikl+UXzIN/2N9HxJpZML4wXjWnmDK5sVIc1CnwTea56OT1jKo1N3SuN1yu5zZnY823g0AnULklp2bEpVesomb7/UQGTcwsfk+NzGIGJKFzBsm1SUA4JzgugpJ4mxp7hWkHbiKOgna+X7scxcjEaSfZqJ/YXKGfDjDAZgAhOU7dKw65wjjFq6Xgm1yqAqPo3gNbssdb85tAAAA5/bKSzwXHdwMQpYycIYDcMER5H0wvurIOcFxe0MIl6O0hx8vnWg+2f17T171xMANZjl4wWrp9ZoHAF1pQS1GsMYiqsegrgRYnxNeQZr81fzA8APh79br9P9r9lihlDL3BRP51/XbHR0IbRGFGyG0dpHb7Ux5ucaeoXHUe2lseQ1STwzcYFvOT02ceV+vYqWWYuilGEYbxGGrAyEyTtMb8Y6MPNL47Wb627yHAfTr4TFl7D2k5WfIiF2keUBm5S5hahGllYRUYpQV9oI/mLll8FTt79vR/R+QLkYI9K7thAAAAABJRU5ErkJggg=="></button></td><td id="eth"><button class="cryptodonate-btn">Donate<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAOwAAADsAEnxA+tAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAABAxJREFUWIW9l19oW3UUx7+/u9ze3PRml/QPNa5bpaldMdgWklawXRFnFX0RJj7MMUEcRRAFg8kmZTUwRBeTO7YJ+iB9KYhrIUIVLOJLIWkR2jLXgdDEljSU2JZCRpNmSZN7fLB2seYmWfrnPJ7zPed8OPd3f3+OYR/mcrkGUqmUORaLLVRag6s0UVEUsaamZojjuK9sNpvhyAFyudwnOp3uSQBNjDHXkQIoitLCGHPmua50d3e3HhlALpe7CUCf5xKI6NaRAHi93nOMsdf2+onoFbvd/vqhAiiKIgLwFZHcam9vrz40ACK6CuCpIpJTgiBcORQAj8fzNBE5SumIyGW3208fOADHcTcBCGVIqwDcPlAAn8/3JoBXyy0KoN9ut79xIABut9tARF8WiqmqWiz1htVqlfYNIEnSpwCa8n3b29sIh8OYmJhgy8vLiMfjyOVye1NPGgyGwVL1WbGgz+drJaJ72Pn2yWQSoVAIkUgE2WwWjDEsLDw6hyRJgizL4Hn+X1dGVdXOubm5P7R66IoBENHXAIR4PI5QKIRoNAoi0tQnEgkkEgmIoghZlqHX66s4jrsN4CWtHM0JeDye86urq9+Fw2Gsra0VTt4zgb0mCAJkWYbBYDg/MzPzfSGN5gTm5+dfXlpaKvRty7Z0Oo319XUYjcZ+AAUBNBfhyMjIOxaLxV5fX79YKYAgCKsmk+nM4uLiu1oaTQCPx3Omo6Pjr/HxcUtzc/NHkiQ9LLcxz/MZWZavrqysPFFbW7vU1/d8n5b2mFagp6dnjef5n/v7+xubmppuJJPJ6waDwZpKpdpUVWXAP2tgY2NjN4cxhurq6sl0Ot3Z0NAwabFYPuA4dm1rK/15LBbbLtRHcwJut/shEV1ijF3OZDL3rVbr2dHR0XONjY2nzWbz74z9d/2KorhYV1f3bCQSeaGtreU5UdTfBei6qtJ7s7OzW1p9im5ETqfzPhENAWhhjP3k9Xp/7Orqyvn9/s7W1ta3jx8/vsXz/JbRaByIRqMWk8mU6u3tGSXifgXwDMAGp6am7hbrUXQj2pkEJ0nSLwDO7rgyjLFv9Hr94PDwcHp2dpZsNluVKIougC5j96ZEk4HA1IsAiu7XJQEAQFGUE6qq3gNQs5vI2DKAj/1+P2MMXgAnH8Wwkc2qHdPT0yulapd1GjocjhUiupTvI6JTRHSHMdzJbw4AqoqBcpqXDQAATqfzBwDDpXRE+DYYDPrLrfu4V7IPARR7Bf0JoOStqWIAp9OZ5DjuAoBC/3QWYBeCweDmoQEAgMPhmGGMXft/hNyBQOC3x61X0cNkc3PzMyKazHMFzOYTX1RSqyIAt9utchx3EaAHAHug0+Uujo2NVX5sVmpDQ0Pv9/b2vrWfGn8D7B56Te6s/b8AAAAASUVORK5CYII="></button></td><td id="ltc"><button class="cryptodonate-btn">Donate<img src="data:image/png;base64,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"></button></td></tr></table></div></div><div class="sm:w-4/5"><div id="disqus_thread" identifier="worldwide-accessible-pi" style="min-height:200px;"></div></div><!----><!----><!----></footer></article><footer class="text-gray-700 text-sm leading-normal flex flex-wrap justify-between mx-auto max-w-3xl px-6 sm:px-12 pb-8 sm:pb-10"><div class="w-full sm:w-1/2 mb-4 sm:mb-0"><p>For you from <a href="https://twitter.com/b34rd_tek" class="border-b border-transparent hover:border-gray-400 transition-colors duration-300">@b34rd_tek</a></p></div><div class="w-full sm:w-1/2"><nav><ul class="flex sm:justify-end -mx-2"><li class="px-2"><a href="/" class="border-b border-transparent hover:border-gray-400 transition-colors duration-300 active">Home</a></li><li class="px-2"><a href="/about/" class="border-b border-transparent hover:border-gray-400 transition-colors duration-300">About</a></li><li class="px-2"><a href="/sitemap.xml" class="border-b border-transparent hover:border-gray-400 transition-colors duration-300">Sitemap</a></li><li class="px-2"><a href="/feed.xml" class="border-b border-transparent hover:border-gray-400 transition-colors duration-300">RSS Feed</a></li></ul></nav></div></footer></main></div>
+    <script src="/assets/js/app.255b0f59.js" defer></script><script src="/assets/js/page--src--templates--post-vue.7a6fc996.js" defer></script>
+  </body>
+</html>
