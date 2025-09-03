@@ -22,7 +22,7 @@
   "devDependencies": {
     "moment": "^2.26.0",
     "postcss-import": "^12.0.1",
-    "postcss-nested": "^4.2.1",
+    "postcss-nested": "^7.0.2",
     "tailwindcss": "^1.4.6"
   }
 }
